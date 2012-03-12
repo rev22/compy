@@ -21,4 +21,4 @@ To convert from json to yaml, run:
 
 Each command alternatively accepts file to read from and file to write to locations:
 
-    $ bin/composer-yaml to-yaml /tmp/composer.json /~/mysite/composer.yml
+    $ bin/composer-yaml to-yaml /tmp/composer.json ~/mysite/composer.yml
