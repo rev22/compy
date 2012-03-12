@@ -15,6 +15,7 @@ use Symfony\Component\Console\Helper\DialogHelper;
 
 $input = new ArgvInput();
 $app = new Application('Composer yaml to json and vice versa convertor', '1.0');
+$force = $input->hasParameterOption(array('--force', '-f'));
 
 $commands = array(
     array(
@@ -62,7 +63,7 @@ foreach ($commands as $commandDesc) {
         sprintf('%s file to write to', strtoupper($commandDesc['to']))
     );
 
-    $command->setCode(function (Input $input, Output $output) use ($app, $commandDesc) {
+    $command->setCode(function (Input $input, Output $output) use ($app, $commandDesc, $force) {
         $fromFile = $input->getArgument('from') ?: getcwd() . '/composer.' . $commandDesc['fromExt'];
         $toFile = $input->getArgument('to') ?: getcwd() . '/composer.' . $commandDesc['toExt'];
 
@@ -75,7 +76,7 @@ foreach ($commands as $commandDesc) {
 
         $continue = true;
 
-        if (file_exists($toFile)) {
+        if (!$force && file_exists($toFile)) {
             $dialog = $app->getHelperSet()->get('dialog');
             /** @var $dialog \Symfony\Component\Console\Helper\DialogHelper */
             $continue = $dialog->askConfirmation($output, sprintf(
