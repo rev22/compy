@@ -10,11 +10,19 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Helper\DialogHelper;
 
 $input = new ArgvInput();
-$app = new Application('Composer yaml to json and vice versa convertor', '1.0');
+$app = new Application('Composer YAML to JSON and vice versa converter', '1.0');
+$app->getDefinition()->addOption(new InputOption(
+	'--force',
+	'-f',
+	InputOption::VALUE_OPTIONAL,
+	'Do not ask if destination file already exists'
+));
+
 $force = $input->hasParameterOption(array('--force', '-f'));
 
 $commands = array(
