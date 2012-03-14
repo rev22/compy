@@ -1,8 +1,21 @@
 {
-    "name": "igorw/composer-yaml",
-    "description": "Tool to convert from composer.yml to composer.json.",
+    "name": "igorw/convert-config",
+    "description": "Convert configuration files between different formats (yaml, json, php)",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleg Stepura",
+            "email": "github@oleg.stepura.com",
+            "homepage": "http://oleg.stepura.com/"
+        },
+        {
+            "name": "Igor Wiedler",
+            "email": "igor@wiedler.ch",
+            "homepage": "http://wiedler.ch/igor/"
+        }
+    ],
     "require": {
-        "symfony/yaml": "2.0.*",
+        "symfony/yaml": "2.1.*",
         "composer/composer": "dev-master"
     },
     "bin": [

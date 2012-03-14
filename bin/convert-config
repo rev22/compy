@@ -1,0 +1,202 @@
+#!/usr/bin/php
+<?php
+/**
+ * @author Igor Wiedler <igor@wiedler.ch>
+ * @author Oleg Stepura <github@oleg.stepura.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace ConvertConfig;
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Yaml\Yaml;
+use Composer\Json\JsonFile;
+
+require __DIR__ . '/../vendor/.composer/autoload.php';
+
+/**
+ * Main application class.
+ */
+class App extends Application
+{
+	/**
+	 * Available commands description.
+	 * @var array
+	 */
+	protected $commands = array(
+		array('from' => 'json', 'to' => 'yaml'),
+		array('from' => 'json', 'to' => 'php'),
+		array('from' => 'yaml', 'to' => 'json'),
+		array('from' => 'yaml', 'to' => 'php'),
+		array('from' => 'php', 'to' => 'json'),
+		array('from' => 'php', 'to' => 'yaml')
+	);
+
+	public function __construct()
+	{
+		parent::__construct('Convert configuration files between different formats', '1.0');
+
+		$this->getDefinition()->addOption(new InputOption(
+			'--force',
+			'-f',
+			InputOption::VALUE_OPTIONAL,
+			'Do not ask if destination file already exists'
+		));
+
+		foreach ($this->commands as $commandDesc) {
+			$command = new Command(sprintf(
+				'%s-to-%s',
+				$commandDesc['from'],
+				$commandDesc['to']
+			));
+			$command->setDescription(sprintf(
+				'Converts %s file to %s',
+				strtoupper($commandDesc['from']),
+				strtoupper($commandDesc['to'])
+			));
+			$command->addArgument(
+				'from',
+				InputArgument::REQUIRED,
+				sprintf('%s file to read from', strtoupper($commandDesc['from']))
+			);
+			$command->addArgument(
+				'to',
+				InputArgument::REQUIRED,
+				sprintf('%s file to write to', strtoupper($commandDesc['to']))
+			);
+			$command->setCode($this->getCommandCode($commandDesc));
+			$this->addCommands(array($command));
+		}
+	}
+
+	/**
+	 * @param array $commandDesc
+	 * @return closure
+	 * @throws \InvalidArgumentException
+	 */
+	public function getCommandCode(array $commandDesc)
+	{
+		$app = $this;
+		return function (Input $input, Output $output) use ($app, $commandDesc)
+		{
+			$fromFile = $input->getArgument('from');
+			$toFile = $input->getArgument('to');
+
+			$ds = DIRECTORY_SEPARATOR;
+			if (!file_exists($fromFile)) {
+				$fromFile = getcwd() . $ds . $fromFile;
+			}
+
+			$winAbsolute = php_sapi_name() === 'win' && substr($toFile, 1, 1) === ':';
+			if (!in_array(substr($toFile, 0, 1), array('\\', '/')) && !$winAbsolute) {
+				$toFile = getcwd() . $ds . $toFile;
+			}
+
+			if (!file_exists($fromFile)) {
+				throw new \InvalidArgumentException(sprintf(
+					'File %s to read from not found',
+					escapeshellarg($fromFile)
+				));
+			}
+
+			$continue = true;
+			$force = $input->hasParameterOption(array('--force', '-f'));
+
+			if (!$force && file_exists($toFile)) {
+				$dialog = $app->getHelperSet()->get('dialog');
+				/** @var $dialog \Symfony\Component\Console\Helper\DialogHelper */
+				$continue = $dialog->askConfirmation($output, sprintf(
+					'File %s to write to already exists. Continue with overwriting it? ',
+					escapeshellarg($toFile)
+				));
+			}
+
+			if ($continue) {
+				$output->writeln(sprintf(
+					'Executing conversion from %s to %s',
+					escapeshellarg($fromFile),
+					escapeshellarg($toFile)
+				));
+				$convertFrom = 'from' . $commandDesc['from'];
+				$convertTo = 'to' . $commandDesc['to'];
+
+				if (!$app->$convertTo($app->$convertFrom($fromFile), $toFile)) {
+					throw new \LogicException(sprintf(
+						'Failed to write to %s',
+						escapeshellarg($toFile)
+					));
+				}
+			}
+		};
+	}
+
+	/**
+	 * @param string $file
+	 * @return array
+	 */
+	public function fromJson($file)
+	{
+		return JsonFile::parseJson(file_get_contents($file));
+	}
+
+	/**
+	 * @param string $file
+	 * @return array
+	 */
+	public function fromYaml($file)
+	{
+		return Yaml::parse($file);
+	}
+
+	/**
+	 * @param string $file
+	 * @return array
+	 */
+	public function fromPhp($file)
+	{
+		$data = include($file);
+		return $data;
+	}
+
+	/**
+	 * @param array $data
+	 * @param string $file
+	 * @return int
+	 */
+	public function toJson(array $data, $file)
+	{
+		return file_put_contents($file, JsonFile::encode($data) . "\n");
+	}
+
+	/**
+	 * @param array $data
+	 * @param string $file
+	 * @return int
+	 */
+	public function toYaml(array $data, $file)
+	{
+		return file_put_contents($file, Yaml::dump($data));
+	}
+
+	/**
+	 * @param array $data
+	 * @param string $file
+	 * @return int
+	 */
+	public function toPhp(array $data, $file)
+	{
+		return file_put_contents($file, '<?php return ' . var_export($data, true) . ';');
+	}
+}
+
+$app = new App();
+$app->run();
