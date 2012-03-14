@@ -1,8 +1,8 @@
-# composer-yaml
+# convert-config
 
-This project allows you to convert a composer.yml file into composer.json format. It will use those exact filenames of your current working directory.
+This project allows you to convert a configuration file in yaml, json or php format to each other of these formats. You may provide absolute or relative to current working directory file paths.
 
-Warning: If you already have a composer.json file, it will overwrite it.
+If you want to automatically overwrite the destination file when it exists use `--force` or `-f` option.
 
 ## Installation
 
@@ -11,14 +11,10 @@ Warning: If you already have a composer.json file, it will overwrite it.
 
 ## Usage
 
-To convert from yaml to json, run:
+To convert composer file from yaml to json, run:
 
-    $ bin/composer-yaml to-json
+    $ bin/convert-config yaml-to-json composer.yml composer.json
 
-To convert from json to yaml, run:
+To convert composer file from json to yaml, run:
 
-    $ bin/composer-yaml to-yaml
-
-Each command alternatively accepts file to read from and file to write to locations:
-
-    $ bin/composer-yaml to-yaml /tmp/composer.json ~/mysite/composer.yml
+    $ bin/convert-config json-to-yaml composer.json composer.yml
