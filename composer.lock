@@ -1,10 +1,10 @@
 {
-    "hash": "e50c7e7f8bb99c54ee28448f6a31a733",
+    "hash": "b8de90bc3d84ad04ace63b1fa68736ea",
     "packages": [
         {
             "package": "composer/composer",
             "version": "dev-master",
-            "source-reference": "09083089ff95aae5be5bf1109e7816c30dc389d4"
+            "source-reference": "76e49aa36c4e5826d5716da794775bba12b0f471"
         },
         {
             "package": "justinrainbow/json-schema",
@@ -14,7 +14,7 @@
         {
             "package": "seld/jsonlint",
             "version": "dev-master",
-            "source-reference": "12f0b1e5334a52b7035e1d15f36974db7c06b78d"
+            "source-reference": "869e5d011fe1c82501ae0a3b427a686c21fd5baf"
         },
         {
             "package": "symfony/console",
@@ -33,7 +33,9 @@
         },
         {
             "package": "symfony/yaml",
-            "version": "v2.0.10"
+            "version": "dev-master",
+            "source-reference": "2552c643a158ee7fb6c52c0dd55806055c575841",
+            "alias": "2.1.9999999.9999999-dev"
         }
     ],
     "aliases": []
