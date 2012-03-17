@@ -22,7 +22,7 @@ use Symfony\Component\Yaml\Yaml;
 use Composer\Json\JsonFile;
 
 $file = '/../vendor/.composer/autoload.php';
-if (file_exists($file)) {
+if (file_exists(__DIR__ . $file)) {
 	include __DIR__ . $file;
 } else {
 	include __DIR__ . '/../../../' . $file;
