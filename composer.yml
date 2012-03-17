@@ -1,4 +1,4 @@
-name: igorw/convert-config
+name: olegstepura/convert-config
 description: 'Convert configuration files between different formats (yaml, json, php)'
 license: MIT
 authors:
