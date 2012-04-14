@@ -20,6 +20,6 @@
         "composer/composer": "dev-master"
     },
     "bin": [
-        "bin/composer-yaml"
+        "bin/convert-config"
     ]
 }
