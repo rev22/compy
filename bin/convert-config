@@ -21,7 +21,7 @@ use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Yaml\Yaml;
 use Composer\Json\JsonFile;
 
-$file = '/../vendor/.composer/autoload.php';
+$file = '/../vendor/autoload.php';
 if (file_exists(__DIR__ . $file)) {
 	include __DIR__ . $file;
 } else {
