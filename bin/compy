@@ -17,6 +17,9 @@ if [ -e compy.yml ]; then
 	gen
 	touch composer.json -r compy.yml
     fi
+elif [ -e composer.yml ]; then
+    mv -i composer.yml compy.yml
+    die "Renamed composer.yml to compy.yml.  Please run compy again."
 else
     gen
 fi
