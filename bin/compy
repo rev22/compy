@@ -8,20 +8,20 @@ fail() {
 }
 
 gen() {
-    "$(dirname "$0")"/convert-config --quiet --force json-to-yaml composer.json composer.yml || fail "Could not generate your composer.yml file"
+    "$(dirname "$0")"/convert-config --quiet --force json-to-yaml composer.json compy.yml || fail "Could not generate your compy.yml file"
 }
 
-if [ -e composer.yml ]; then
-    if [ composer.json -nt composer.yml ]; then
-	mv composer.yml composer.yml~compy~ || fail "Could not backup your composer.yml to composer.yml~compy~"
+if [ -e compy.yml ]; then
+    if [ composer.json -nt compy.yml ]; then
+	mv compy.yml compy.yml~compy~ || fail "Could not backup your compy.yml to compy.yml~compy~"
 	gen
-	touch composer.json -r composer.yml
+	touch composer.json -r compy.yml
     fi
 else
     gen
 fi
 
-if [ composer.yml -nt composer.json ]; then
-"$(dirname "$0")"/convert-config --quiet --force yaml-to-json composer.yml composer.json || fail "Could not generate your composer.json file"
+if [ compy.yml -nt composer.json ]; then
+    "$(dirname "$0")"/convert-config --quiet --force yaml-to-json compy.yml composer.json || fail "Could not generate your composer.json file"
 fi
 exec $COMPOSER "$@"
