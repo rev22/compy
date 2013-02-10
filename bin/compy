@@ -1,0 +1,27 @@
+#!/bin/bash
+
+[ -n "$COMPOSER" ] || COMPOSER=composer
+
+fail() {
+    echo "$*" >&2
+    exit 1
+}
+
+gen() {
+    "$(dirname "$0")"/convert-config --quiet --force json-to-yaml composer.json composer.yml || fail "Could not generate your composer.yml file"
+}
+
+if [ -e composer.yml ]; then
+    if [ composer.json -nt composer.yml ]; then
+	mv composer.yml composer.yml~compy~ || fail "Could not backup your composer.yml to composer.yml~compy~"
+	gen
+	touch composer.json -r composer.yml
+    fi
+else
+    gen
+fi
+
+if [ composer.yml -nt composer.json ]; then
+"$(dirname "$0")"/convert-config --quiet --force yaml-to-json composer.yml composer.json || fail "Could not generate your composer.json file"
+fi
+exec $COMPOSER "$@"
