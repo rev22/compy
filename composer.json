@@ -12,6 +12,11 @@
             "name": "Igor Wiedler",
             "email": "igor@wiedler.ch",
             "homepage": "http://wiedler.ch/igor/"
+        },
+        {
+            "name": "Michele Bini",
+            "email": "michele.bini@gmail.com",
+            "homepage": "http://rev22.github.com"
         }
     ],
     "require": {

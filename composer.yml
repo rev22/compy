@@ -4,6 +4,7 @@ license: MIT
 authors:
     - { name: 'Oleg Stepura', email: github@oleg.stepura.com, homepage: 'http://oleg.stepura.com/' }
     - { name: 'Igor Wiedler', email: igor@wiedler.ch, homepage: 'http://wiedler.ch/igor/' }
+    - { name: 'Michele Bini', email: michele.bini@gmail.com, homepage: 'http://rev22.github.com' }
 require:
     symfony/yaml: '>=2.0'
     symfony/console: '>=2.0'

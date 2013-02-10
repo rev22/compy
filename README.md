@@ -1,20 +1,17 @@
-# convert-config
+'compy' is a wrapper to 'composer' for Symfony2 projects, using an
+easier to maintain YAML file.
 
-This project allows you to convert a configuration file in yaml, json or php format to each other of these formats. You may provide absolute or relative to current working directory file paths.
+You can.use 'compy' like you would 'composer', except you modify the
+'composer.yml'.  The YAML format is easier to read, easier to write
+and allows you to add comments.
 
-If you want to automatically overwrite the destination file when it exists use `--force` or `-f` option.
+When run the first time, 'compy' converts automatically any composer.json present.
+If you modify your 'composer.json', 'compy' will automatically notice
+it when you invoke it, and convert it to 'composer.yml'. 
+'compy' backs up the composer.yaml to 'composer.yaml~compy~', before
+any change is made. 
 
-## Installation
-
-    $ curl -s http://getcomposer.org/installer | php
-    $ php composer.phar install
-
-## Usage
-
-To convert composer file from yaml to json, run:
-
-    $ bin/convert-config yaml-to-json composer.yml composer.json
-
-To convert composer file from json to yaml, run:
-
-    $ bin/convert-config json-to-yaml composer.json composer.yml
+To install 'compy':
+* copy the contents of the 'bin/' directory to your symfony project's 'bin/' or 'app/' directory;
+* add a dependency to 'composer/composer' in your 'composer.json' and run 'composer install'
+* make sure the composer tool is installed system-wide
