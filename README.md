@@ -1,9 +1,19 @@
 `compy` is a wrapper to `composer` for Symfony2 projects, using an
-easier to maintain YAML file.
+easier to use YAML file.
 
 You can.use `compy` like you would `composer`, except you modify the
-`composer.yml`.  The YAML format is easier to read, easier to write
-and allows you to add comments.
+`composer.yml`:
+
+   acme> app/compy update
+
+The YAML format is easier to read, easier to write
+and allows you to add comments:
+
+    license: MIT
+    require:
+        symfony/yaml:       '>=2.0'
+        symfony/console:    '>=2.0'
+        composer/composer:  dev-master
 
 When run the first time, `compy` converts automatically any composer.json present.
 If you modify your `composer.json`, `compy` will automatically notice
