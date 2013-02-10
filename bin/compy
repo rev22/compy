@@ -19,7 +19,7 @@ if [ -e compy.yml ]; then
     fi
 elif [ -e composer.yml ]; then
     mv -i composer.yml compy.yml
-    die "Renamed composer.yml to compy.yml.  Please run compy again."
+    fail "Renamed composer.yml to compy.yml.  Please run compy again."
 else
     gen
 fi
