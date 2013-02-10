@@ -4,7 +4,7 @@ easier to use YAML file.
 You can.use `compy` like you would `composer`, except you modify the
 `composer.yml`:
 
-   acme> app/compy update
+   acme> bin/compy update
 
 The YAML format is easier to read, easier to write
 and allows you to add comments:
@@ -18,7 +18,7 @@ and allows you to add comments:
 When run the first time, `compy` converts automatically any composer.json present.
 If you modify your `composer.json`, `compy` will automatically notice
 it when you invoke it, and convert it to `composer.yml`. 
-`compy` backs up the composer.yaml to `composer.yaml~compy~`, before
+`compy` backs up the composer.yml to `composer.yml~compy~`, before
 any change is made. 
 
 To install `compy`:
