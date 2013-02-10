@@ -1,6 +1,6 @@
 {
     "name": "olegstepura/convert-config",
-    "description": "Convert configuration files between different formats (yaml, json, php)",
+    "description": "Wrapper to composer for Symfony2 projects, using an easier to use YAML file.",
     "license": "MIT",
     "authors": [
         {
