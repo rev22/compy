@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-[ -n "$COMPOSER" ] || COMPOSER=composer
+[ -n "$COMPYYML" ]         || COMPYYML=compy.yml
+[ -n "$COMPOSER_SCRIPT" ]  || COMPOSER_SCRIPT=composer
+[ -n "$COMPOSER" ]         || COMPOSER=composer.json
 
 fail() {
     echo "$*" >&2
@@ -8,23 +10,28 @@ fail() {
 }
 
 gen() {
-    "$(dirname "$0")"/convert-config --quiet --force json-to-yaml composer.json compy.yml || fail "Could not generate your compy.yml file"
+    "$(dirname "$0")"/convert-config --quiet --force json-to-yaml "$COMPOSER" "$COMPYYML" || fail "Could not generate your $COMPYYML file"
+    touch "$COMPYYML" -r "$COMPOSER"
 }
 
-if [ -e compy.yml ]; then
-    if [ composer.json -nt compy.yml ]; then
-	mv compy.yml compy.yml~compy~ || fail "Could not backup your compy.yml to compy.yml~compy~"
+if [ -e "$COMPYYML" ]; then
+    if [ "$COMPOSER" -nt "$COMPYYML" ]; then
+	mv "$COMPYYML" "$COMPYYML"~compy~ || fail "Could not backup your $COMPYYML to $COMPYYML~compy~"
 	gen
-	touch composer.json -r compy.yml
     fi
-elif [ -e composer.yml ]; then
-    mv -i composer.yml compy.yml
-    fail "Renamed composer.yml to compy.yml.  Please run compy again."
 else
-    gen
+    # if compy.yml is not present but there is a composer.yml, rename it
+    x="$(printf "%s" "$COMPOSER"|sed "s/[.]json$/[.]yml/ip")"
+    if [ -n "$x" ] && [ -e "$x" ]; then
+	mv -i "$x" "$COMPYYML"
+	die "Renamed $x to $COMPYYML.  Please run compy again."
+    else
+	gen
+    fi
 fi
 
-if [ compy.yml -nt composer.json ]; then
-    "$(dirname "$0")"/convert-config --quiet --force yaml-to-json compy.yml composer.json || fail "Could not generate your composer.json file"
+if [ "$COMPYYML" -nt "$COMPOSER" ]; then
+    "$(dirname "$0")"/convert-config --quiet --force yaml-to-json "$COMPYYML" "$COMPOSER" || fail "Could not generate your $COMPOSER file"
+    touch $COMPOSER -r "$COMPYYML"
 fi
-exec $COMPOSER "$@"
+exec "$COMPOSER_SCRIPT" "$@"
