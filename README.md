@@ -4,7 +4,7 @@ easier to use YAML file.
 You can.use `compy` just like `composer`, except you modify the
 `compy.yml`, instead of the `composer.json`:
 
-    alice@acme$ bin/compy update
+    alice@acme$ bin/compy --version
     Composer version aa1c093
 
 The YAML format is easier to read, easier to write
