@@ -1,5 +1,5 @@
 {
-    "name": "olegstepura/convert-config",
+    "name": "rev22/compy",
     "description": "Wrapper to composer for Symfony2 projects, using an easier to use YAML file.",
     "license": "MIT",
     "authors": [
