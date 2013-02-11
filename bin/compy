@@ -24,7 +24,7 @@ else
     x="$(printf "%s" "$COMPOSER"|sed "s/[.]json$/[.]yml/ip")"
     if [ -n "$x" ] && [ -e "$x" ]; then
 	mv -i "$x" "$COMPYYML"
-	die "Renamed $x to $COMPYYML.  Please run compy again."
+	fail "Renamed $x to $COMPYYML.  Please run compy again."
     else
 	gen
     fi
