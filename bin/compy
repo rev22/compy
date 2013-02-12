@@ -16,7 +16,8 @@ gen() {
 
 if [ -e "$COMPYYML" ]; then
     if [ "$COMPOSER" -nt "$COMPYYML" ]; then
-	mv "$COMPYYML" "$COMPYYML"~compy~ || fail "Could not backup your $COMPYYML to $COMPYYML~compy~"
+	echo "Renaming your $COMPYYML to \"""$COMPYYML""~compy~\""
+	mv -i "$COMPYYML" "$COMPYYML"~compy~ || fail "Could not backup your $COMPYYML to $COMPYYML~compy~"
 	gen
     fi
 else
