@@ -57,6 +57,13 @@ class App extends Application
             'Do not ask if destination file already exists'
         ));
 
+        $this->getDefinition()->addOption(new InputOption(
+            '--no-verbose',
+            null,
+            InputOption::VALUE_NONE,
+            'Only output error messages and warnings'
+        ));
+
         foreach ($this->commands as $commandDesc) {
             $command = new Command(sprintf(
                 '%s-to-%s',
@@ -115,7 +122,8 @@ class App extends Application
 
             $continue = true;
             $force = $input->hasParameterOption(array('--force', '-f'));
-
+            $quiet = $input->hasParameterOption('--no-verboese'));
+	    
             if (!$force && file_exists($toFile)) {
                 $dialog = $app->getHelperSet()->get('dialog');
                 /** @var $dialog \Symfony\Component\Console\Helper\DialogHelper */
@@ -126,11 +134,13 @@ class App extends Application
             }
 
             if ($continue) {
-                $output->writeln(sprintf(
-                    'Executing conversion from %s to %s',
-                    escapeshellarg($fromFile),
-                    escapeshellarg($toFile)
-                ));
+		if (!$quiet) {
+		    $output->writeln(sprintf(
+			'Executing conversion from %s to %s',
+			escapeshellarg($fromFile),
+			escapeshellarg($toFile)
+		    ));
+		}
                 $convertFrom = 'from' . $commandDesc['from'];
                 $convertTo = 'to' . $commandDesc['to'];
 

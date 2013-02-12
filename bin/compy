@@ -10,7 +10,7 @@ fail() {
 }
 
 gen() {
-    "$(dirname "$0")"/convert-config --quiet --force json-to-yaml "$COMPOSER" "$COMPYYML" || fail "Could not generate your $COMPYYML file"
+    "$(dirname "$0")"/convert-config --no-verbose --force json-to-yaml "$COMPOSER" "$COMPYYML" || fail "Could not generate your $COMPYYML file"
     touch "$COMPYYML" -r "$COMPOSER"
 }
 
@@ -32,7 +32,7 @@ else
 fi
 
 if [ "$COMPYYML" -nt "$COMPOSER" ]; then
-    "$(dirname "$0")"/convert-config --quiet --force yaml-to-json "$COMPYYML" "$COMPOSER" || fail "Could not generate your $COMPOSER file"
+    "$(dirname "$0")"/convert-config --no-verbose --force yaml-to-json "$COMPYYML" "$COMPOSER" || fail "Could not generate your $COMPOSER file"
     touch $COMPOSER -r "$COMPYYML"
 fi
 exec "$COMPOSER_SCRIPT" "$@"
