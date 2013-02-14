@@ -1,7 +1,7 @@
 `compy` is a wrapper to `composer` for Symfony2 projects, based on an
 easier to use YAML file.
 
-### Usage
+## Usage
 
 You can use `compy` just like `composer`, except you modify the
 `compy.yml`, instead of the `composer.json`:
@@ -9,7 +9,7 @@ You can use `compy` just like `composer`, except you modify the
     alice@acme$ bin/compy --version
     Composer version aa1c093
 
-#### Your `compy.yml`
+### Your `compy.yml`
 
 The YAML format is easier to read, easier to write
 and allows you to add comments, like in the following snippet:
@@ -20,18 +20,24 @@ and allows you to add comments, like in the following snippet:
         symfony/console:   '>=2.0'
         composer/composer:  dev-master
 
-### (Automatic) Configuration
+## (Automatic) Configuration
 
 When run the first time, `compy` converts automatically any composer.json present.
 If you modify your `composer.json`, `compy` will automatically notice
 it when you invoke it, and convert it to `compy.yml`. `compy` backs up
 your `compy.yml` to `compy.yml~compy~`, before any change is made. 
 
-### Installation
+## Installation
 
 You can install `compy` by copying files by hand, or through `composer`:
 
-#### copying files by hand:
+### copying files by hand:
 * copy the contents of the `bin/` directory to your symfony project's `bin/` or `app/` directory;
 * add a dependency to `composer/composer` in your `composer.json` and run `composer install`
 * make sure the composer tool is installed system-wide
+
+## History of the tool
+
+The `compy` script was brought to you by Michele Bini.
+The package includes on Oleg Stepura's `convert-config` tool, which was forked from Igor Wiedler's `composer-yaml`.
+
