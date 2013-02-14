@@ -9,7 +9,7 @@ You can use `compy` just like `composer`, except you modify the
     alice@acme$ bin/compy --version
     Composer version aa1c093
 
-#### `compy.yml`
+#### Your `compy.yml`
 
 The YAML format is easier to read, easier to write
 and allows you to add comments, like in the following snippet:
@@ -25,7 +25,7 @@ and allows you to add comments, like in the following snippet:
 When run the first time, `compy` converts automatically any composer.json present.
 If you modify your `composer.json`, `compy` will automatically notice
 it when you invoke it, and convert it to `compy.yml`. `compy` backs up
-the compy.yml to `compy.yml~compy~`, before any change is made. 
+your `compy.yml` to `compy.yml~compy~`, before any change is made. 
 
 ### Installation
 
