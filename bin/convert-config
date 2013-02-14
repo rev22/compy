@@ -122,7 +122,7 @@ class App extends Application
 
             $continue = true;
             $force = $input->hasParameterOption(array('--force', '-f'));
-            $quiet = $input->hasParameterOption('--no-verbose'));
+            $quiet = $input->hasParameterOption('--no-verbose');
 	    
             if (!$force && file_exists($toFile)) {
                 $dialog = $app->getHelperSet()->get('dialog');
