@@ -38,11 +38,11 @@ You can install `compy` in your project by copying files by hand, or through `co
 ### installing via composer
 1. require the package `rev22/compy` via `composer`
 
-    composer require rev22/compy:dev-master
+        composer require rev22/compy:dev-master
 
 2. copy the files to your project's `bin` or `app` directory:
 
-    cp -uav vendor/rev22/compy/bin/* bin/
+        cp -uav vendor/rev22/compy/bin/* bin/
 
 ### copying files by hand:
 1. copy the contents of the `bin/` directory to your symfony project's `bin/` or `app/` directory;
