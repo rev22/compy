@@ -1,5 +1,5 @@
 name: rev22/compy
-description: 'Wrapper to composer for Symfony2 projects, using an easier to use YAML file.'
+description: 'Wrapper to composer for Symfony2 projects, based on an easier to use YAML file.'
 license: MIT
 authors:
     - { name: 'Oleg Stepura',  email: github@oleg.stepura.com,  homepage: 'http://oleg.stepura.com/' }
