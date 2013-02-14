@@ -15,13 +15,13 @@ You should only run `compy` from the directory your `compy.yml` or `composer.jso
 
 The YAML format is easier to read, easier to write
 and allows you to add comments, like in the following snippet:
-
-    license: MIT
-    require:
-        symfony/yaml:      '>=2.0'     # This is a comment
-        symfony/console:   '>=2.0'
-        composer/composer:  dev-master
-
+````yaml
+license: MIT
+require:
+    symfony/yaml:      '>=2.0'     # This is a comment
+    symfony/console:   '>=2.0'
+    composer/composer:  dev-master
+````
 ## (Automatic) Configuration
 
 When run the first time, `compy` converts automatically any composer.json present.
