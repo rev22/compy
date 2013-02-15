@@ -43,7 +43,7 @@ You can install `compy` in your project by copying files by hand, or through `co
 
 2. now you can use compy from the 'vendor/bin/' directory:
 
-        user> compy --version
+        user> vendor/bin/compy --version
 
 ### copying files by hand:
 1. copy the contents of the `bin/` directory from this code
