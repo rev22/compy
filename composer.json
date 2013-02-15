@@ -25,6 +25,7 @@
         "composer/composer": "dev-master"
     },
     "bin": [
+        "bin/compy",
         "bin/convert-config"
     ]
 }

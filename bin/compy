@@ -4,6 +4,13 @@
 [ -n "$COMPOSER_SCRIPT" ]  || COMPOSER_SCRIPT=composer
 [ -n "$COMPOSER" ]         || COMPOSER=composer.json
 
+# Copyright (c) 2013 Michele Bini
+
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+COMPY_VERSION=0.1.6
+
 fail() {
     echo "$*" >&2
     exit 1
@@ -35,4 +42,7 @@ if [ "$COMPYYML" -nt "$COMPOSER" ]; then
     "$(dirname "$0")"/convert-config --no-verbose --force yaml-to-json "$COMPYYML" "$COMPOSER" || fail "Could not generate your $COMPOSER file"
     touch $COMPOSER -r "$COMPYYML"
 fi
+
+[ -n "$1" ] && [ "$1" = "--version" ] && echo "Compy version $COMPY_VERSION"
+
 exec "$COMPOSER_SCRIPT" "$@"

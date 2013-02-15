@@ -7,6 +7,7 @@ You can use `compy` just like `composer`, except you modify the
 `compy.yml`, instead of the `composer.json`:
 
     alice@acme$ bin/compy --version
+    Compy version 0.1.6
     Composer version aa1c093
 
 You should only run `compy` from the directory your `compy.yml` or `composer.json` are.
@@ -40,18 +41,21 @@ You can install `compy` in your project by copying files by hand, or through `co
 
         composer require rev22/compy:dev-master
 
-2. copy the files to your project's `bin` or `app` directory:
+2. now you can use compy from the 'vendor/bin/' directory:
 
-        cp -uav vendor/rev22/compy/bin/* bin/
+        user> compy --version
 
 ### copying files by hand:
-1. copy the contents of the `bin/` directory to your symfony project's `bin/` or `app/` directory;
-2. add a dependency to `composer/composer` in your `composer.json` and run `composer install`
+1. copy the contents of the `bin/` directory from this code
+   archive to your symfony project's `bin/` or `app/` directory;
+2. add a dependency to `composer/composer` in your `composer.json`
+   and run `composer install`
 3. make sure the composer tool is installed system-wide
 
 ## License
 
-`compy` is available under the terms of a MIT-style license.   Please consult the file LICENSE
+`compy` is available under the terms of a MIT-style license.
+Please consult the file LICENSE for details.
 
 ## History of the tool
 
