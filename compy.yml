@@ -10,4 +10,5 @@ require:
     symfony/console:   '>=2.0'
     composer/composer:  dev-master
 bin:
+    - bin/compy
     - bin/convert-config
