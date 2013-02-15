@@ -56,5 +56,5 @@ You can install `compy` in your project by copying files by hand, or through `co
 ## History of the tool
 
 The `compy` script was brought to you by Michele Bini.
-The package includes on Oleg Stepura's `convert-config` tool, which was forked from Igor Wiedler's `composer-yaml`.
+The package includes Oleg Stepura's `convert-config` tool, which was forked from Igor Wiedler's `composer-yaml`.
 
