@@ -9,23 +9,23 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-COMPY_VERSION=0.1.6
+COMPY_VERSION=0.1.7
 
 fail() {
     echo "$*" >&2
     exit 1
 }
 
-gen() {
+genyml() {
     "$(dirname "$0")"/convert-config --no-verbose --force json-to-yaml "$COMPOSER" "$COMPYYML" || fail "Could not generate your $COMPYYML file"
     touch "$COMPYYML" -r "$COMPOSER"
 }
 
 if [ -e "$COMPYYML" ]; then
-    if [ "$COMPOSER" -nt "$COMPYYML" ]; then
+    if [ -e "$COMPOSER" ] && [ "$COMPOSER" -nt "$COMPYYML" ]; then
 	echo "Renaming your $COMPYYML to \"""$COMPYYML""~compy~\""
 	mv -i "$COMPYYML" "$COMPYYML"~compy~ || fail "Could not backup your $COMPYYML to $COMPYYML~compy~"
-	gen
+	genyml
     fi
 else
     # if compy.yml is not present but there is a composer.yml, rename it
@@ -34,13 +34,21 @@ else
 	mv -i "$x" "$COMPYYML"
 	fail "Renamed $x to $COMPYYML.  Please run compy again."
     else
-	gen
+	genyml
     fi
 fi
 
-if [ "$COMPYYML" -nt "$COMPOSER" ]; then
+genjson() {
     "$(dirname "$0")"/convert-config --no-verbose --force yaml-to-json "$COMPYYML" "$COMPOSER" || fail "Could not generate your $COMPOSER file"
     touch $COMPOSER -r "$COMPYYML"
+}
+
+if  [ -e "$COMPOSER" ]; then
+    if  [ "$COMPYYML" -nt "$COMPOSER" ]; then
+	genjson
+    fi
+else
+    genjson
 fi
 
 [ -n "$1" ] && [ "$1" = "--version" ] && echo "Compy version $COMPY_VERSION"
