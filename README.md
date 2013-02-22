@@ -23,6 +23,8 @@ require:
     symfony/console:   '>=2.0'
     composer/composer:  dev-master
 ````
+This is especially useful in large projects with many dependencies.
+
 ## (Automatic) Configuration
 
 When run the first time, `compy` converts automatically any composer.json present.
