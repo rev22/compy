@@ -23,7 +23,7 @@ require:
     symfony/console:   '>=2.0'
     composer/composer:  dev-master
 ````
-This is especially useful in large projects with many dependencies.
+This is especially useful in large projects with complex dependencies.
 
 ## (Automatic) Configuration
 
