@@ -1,15 +1,38 @@
 #!/bin/sh
 
+
+# COMPOSER_SCRIPT=/path/to/your/composer
+
 [ -n "$COMPYYML" ]         || COMPYYML=compy.yml
-[ -n "$COMPOSER_SCRIPT" ]  || COMPOSER_SCRIPT=composer
 [ -n "$COMPOSER" ]         || COMPOSER=composer.json
+
+# php='php5' # Php executable for the composer script
+
 
 # Copyright (c) 2013 Michele Bini
 
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-COMPY_VERSION=0.1.7
+
+COMPY_VERSION=0.1.8
+
+if [ -z "$COMPOSER_SCRIPT" ]; then
+    d="$(dirname "$0")"
+    php=""
+    x="$d/composer.phar"
+    if [ -f "$x" ] && [ -x "$x" ]; then
+	COMPOSER_SCRIPT="$x"
+	php=1
+    else
+	x="$d/composer"
+	if [ -f "$x" ] && [ -x "$x" ]; then
+	    COMPOSER_SCRIPT="$x"
+	else
+	    COMPOSER_SCRIPT=composer
+	fi
+    fi
+fi
 
 fail() {
     echo "$*" >&2
@@ -53,4 +76,8 @@ fi
 
 [ -n "$1" ] && [ "$1" = "--version" ] && echo "Compy version $COMPY_VERSION"
 
-exec "$COMPOSER_SCRIPT" "$@"
+if [ -n "$php" ]; then
+    exec "$php" "$COMPOSER_SCRIPT" "$@"
+else
+    exec "$COMPOSER_SCRIPT" "$@"
+fi
